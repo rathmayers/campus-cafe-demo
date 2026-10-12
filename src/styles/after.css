@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@import "@fontsource/atkinson-hyperlegible/400.css";
+@import "@fontsource/atkinson-hyperlegible/700.css";
+
+/* Only scan the AFTER version for utility classes */
+@source not "../pages/before";
+@source not "../layouts/BeforeLayout.astro";
+
+@theme {
+  --font-sans: "Atkinson Hyperlegible", ui-sans-serif, system-ui, sans-serif;
+  --color-bean-950: #2a1a12;
+  --color-bean-900: #3b2a20;
+  --color-bean-800: #5a3d2b;
+  --color-bean-100: #f4ede4;
+  --color-bean-50: #faf7f2;
+  --color-crema-400: #e0b878;
+  --color-berry-700: #9b2c2c;
+}
+
+@layer base {
+  html { scroll-padding-top: 1rem; }
+  body { @apply bg-bean-50 text-bean-950 font-sans antialiased; }
+  :focus-visible { @apply outline-3 outline-offset-2 outline-berry-700; }
+  a { @apply underline decoration-2 underline-offset-2; }
+}

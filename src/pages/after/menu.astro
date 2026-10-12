@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/AfterLayout.astro';
+import { menu, special } from '../../data/cafe';
+---
+<Layout title="Menu" description="Coffee, tea, hot chocolate, croissants, bagels and vegan bowls at Campus Café, with prices.">
+  <h1 class="text-4xl font-bold">Menu</h1>
+  <p class="mt-4 rounded-lg bg-bean-100 p-4"><strong>Today's special:</strong> {special.name}, {special.price} ({special.note.toLowerCase()}).</p>
+
+  <div class="mt-8 grid gap-10 md:grid-cols-3">
+    {menu.map((cat) => (
+      <section aria-labelledby={`cat-${cat.category}`}>
+        <h2 id={`cat-${cat.category}`} class="border-b-2 border-bean-900 pb-1 text-2xl font-bold">{cat.category}</h2>
+        <ul class="mt-4 space-y-4">
+          {cat.items.map((it) => (
+            <li>
+              <div class="flex items-baseline justify-between gap-4">
+                <h3 class="text-lg font-bold">{it.name}</h3>
+                <span class="whitespace-nowrap font-bold">{it.price}</span>
+              </div>
+              <p class="text-bean-800">{it.description}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+  <p class="mt-10 text-sm">All prices include VAT. Ask us about allergens: we are happy to help.</p>
+</Layout>

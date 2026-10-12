@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/BeforeLayout.astro';
+import { url, cafe } from '../../data/cafe';
+---
+<Layout>
+  <h1 class="h">Contact</h1>
+  <img src={url('/before/img/contact.png')}>
+  <div>{cafe.street}, {cafe.city}</div>
+  <br>
+  <iframe src="https://maps.google.com/maps?q=Munich&z=12&output=embed" width="1100" height="320" style="border:0"></iframe>
+
+  <div class="h" style="font-size:24px">Newsletter & reservations</div>
+  <form action="http://campus-cafe.example/subscribe" method="get">
+    <input type="text" name="name" placeholder="Name"><br><br>
+    <input type="text" name="email" placeholder="E-Mail"><br><br>
+    <input type="text" name="birthday" placeholder="Birthday"><br><br>
+    <input type="text" name="phone" placeholder="Phone"><br><br>
+    <textarea name="msg" placeholder="Message"></textarea><br><br>
+    <div class="btn2" onclick="this.closest('form').submit()">Send</div>
+  </form>
+</Layout>

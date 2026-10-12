@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/AfterLayout.astro';
+import { cafe, special, events, url } from '../../data/cafe';
+import hero from '../../assets/hero.jpg';
+import pastry from '../../assets/pastry.jpg';
+import eventImg from '../../assets/event.jpg';
+const next = events[0];
+---
+<Layout title="Coffee & study space on campus" description="Campus Café: espresso, fresh croissants and quiet study tables. Open Monday to Saturday, with power sockets at every table.">
+  <section class="grid items-center gap-8 md:grid-cols-2">
+    <div>
+      <h1 class="text-4xl font-bold leading-tight sm:text-5xl">{cafe.tagline}</h1>
+      <p class="mt-4 text-lg leading-relaxed">
+        Come in, sit down, and stay as long as you like. Wi-Fi, power sockets at every table,
+        and the best croissants on campus.
+      </p>
+      <p class="mt-6 flex flex-wrap gap-3">
+        <a href={url('/after/menu/')} class="rounded-md bg-bean-900 px-5 py-3 font-bold text-bean-50 no-underline hover:bg-bean-800">See the menu</a>
+        <a href={url('/after/events/')} class="rounded-md border-2 border-bean-900 px-5 py-3 font-bold no-underline hover:bg-bean-100">Upcoming events</a>
+      </p>
+    </div>
+    <Image src={hero} alt="Two coffee cups on a wooden counter, warm lights in the background" width={1200} widths={[480, 800, 1200]} sizes="(min-width: 768px) 50vw, 100vw" loading="eager" fetchpriority="high" class="h-auto w-full rounded-xl" />
+  </section>
+
+  <section aria-labelledby="special-heading" class="mt-12 rounded-xl bg-bean-100 p-6 sm:p-8">
+    <h2 id="special-heading" class="text-sm font-bold uppercase tracking-wide">Today's special</h2>
+    <p class="mt-2 text-3xl font-bold">{special.name} <span class="whitespace-nowrap">– {special.price}</span></p>
+    <p class="mt-1">{special.note}.</p>
+  </section>
+
+  <div class="mt-12 grid gap-8 md:grid-cols-2">
+    <section aria-labelledby="fresh-heading">
+      <Image src={pastry} alt="" width={700} widths={[400, 700]} sizes="(min-width: 768px) 45vw, 100vw" class="h-auto w-full rounded-xl" />
+      <h2 id="fresh-heading" class="mt-4 text-2xl font-bold">Fresh every morning</h2>
+      <p class="mt-2">Croissants, bagels and bowls, baked and prepared in-house before we open.</p>
+      <p class="mt-2"><a href={url('/after/menu/')}>Food and drinks on our menu</a></p>
+    </section>
+    <section aria-labelledby="next-heading">
+      <Image src={eventImg} alt="" width={700} widths={[400, 700]} sizes="(min-width: 768px) 45vw, 100vw" class="h-auto w-full rounded-xl" />
+      <h2 id="next-heading" class="mt-4 text-2xl font-bold">Next event: {next.title}</h2>
+      <p class="mt-2"><time datetime={next.date}>{next.dateLabel}</time>, {next.time}. {next.text}</p>
+      <p class="mt-2"><a href={url('/after/events/')}>All upcoming events</a></p>
+    </section>
+  </div>
+</Layout>

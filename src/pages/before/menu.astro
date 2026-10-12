@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/BeforeLayout.astro';
+import { url, menu } from '../../data/cafe';
+---
+<Layout>
+  <h1 class="h">Menu</h1>
+  <img src={url('/before/img/special.png')} width="900">
+  <table class="layout">
+    <tr>
+      {menu.map((cat) => (
+        <td>
+          <h4 class="h" style="font-size:24px">{cat.category}</h4>
+          {cat.items.map((it) => (
+            <div style="margin-bottom:10px">
+              <b style="font-weight:800;color:#c9b8a8">{it.name}</b> <font color="#d6d6d6">{it.price}</font><br />
+              <i>{it.description}</i>
+            </div>
+          ))}
+        </td>
+      ))}
+    </tr>
+  </table>
+  <img src={url('/before/img/latte.png')} style="width:1100px">
+</Layout>

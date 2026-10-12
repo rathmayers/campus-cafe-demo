@@ -1,0 +1,32 @@
+---
+import Layout from '../../layouts/BeforeLayout.astro';
+import { url, cafe } from '../../data/cafe';
+const img = (n: string) => url(`/before/img/${n}.png`);
+---
+<Layout>
+  <div class="ticker"><marquee scrollamount="7">+++ NEW: oat milk at no extra charge +++ Open Mic Night on 5 November +++ Student deal: 2 coffees for 5 € +++ Exam Study Marathon +++</marquee></div>
+  <div class="slider">
+    <img class="on" src={img('hero')}>
+    <img src={img('latte')}>
+    <img src={img('pastry')}>
+  </div>
+
+  <div class="h">Welcome!!!</div>
+  <div>{cafe.tagline}. Come in, sit down, and stay as long as you like. We have Wi-Fi, power sockets at every table and the best croissants on campus. Click <a href="menu/">here</a> to see our menu or click <a href="events/">here</a> for events.</div>
+
+  <div class="box">
+    <div class="h" style="font-size:22px">Today</div>
+    <img src={img('special')}>
+  </div>
+  <div class="box">
+    <div class="h" style="font-size:22px">Fresh every morning</div>
+    <img src={img('pastry')}>
+    <div class="btn" onclick={`location.href='${url('/before/menu/')}'`}>more</div>
+  </div>
+  <div class="box" style="margin-right:0">
+    <div class="h" style="font-size:22px">Events</div>
+    <img src={img('event')}>
+    <span class="btn2" onclick={`location.href='${url('/before/events/')}'`}>Read more</span>
+  </div>
+  <div class="clear"></div>
+</Layout>

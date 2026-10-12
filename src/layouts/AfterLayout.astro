@@ -1,0 +1,119 @@
+---
+/**
+ * AFTER version — the same café, built properly (CM-501 teaching demo).
+ * Semantic HTML, WCAG 2.2 AA, responsive, self-hosted assets, no trackers.
+ */
+import '../styles/after.css';
+import { cafe, url } from '../data/cafe';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const here = Astro.url.pathname;
+const nav = [
+  { href: url('/after/'), label: 'Home' },
+  { href: url('/after/menu/'), label: 'Menu' },
+  { href: url('/after/events/'), label: 'Events' },
+  { href: url('/after/contact/'), label: 'Contact' },
+];
+const canonical = new URL(here, Astro.site);
+// Content-Security-Policy as <meta>, because GitHub Pages cannot send custom headers.
+// On Vercel the same policy is ALSO sent as a real HTTP header (see vercel.json).
+const csp = [
+  "default-src 'self'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "style-src 'self'",
+  "script-src 'self'",
+  "connect-src 'self'",
+  "form-action 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+].join('; ');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content={csp} />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>{title} · {cafe.name}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={`${title} · ${cafe.name}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#3b2a20" />
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-bean-950">
+      Skip to main content
+    </a>
+
+    <header class="bg-bean-900 text-bean-50">
+      <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
+        <a href={url('/after/')} class="text-2xl font-bold no-underline">
+          {cafe.name}<span class="sr-only"> – home</span>
+        </a>
+        <nav aria-label="Main">
+          <ul class="flex flex-wrap gap-1 sm:gap-2">
+            {nav.map((item) => {
+              const current = here === item.href;
+              return (
+                <li>
+                  <a
+                    href={item.href}
+                    aria-current={current ? 'page' : undefined}
+                    class:list={[
+                      'inline-block rounded-md px-3 py-2 text-base font-bold no-underline hover:bg-bean-800',
+                      current && 'bg-bean-50 text-bean-900 hover:bg-bean-100',
+                    ]}
+                  >{item.label}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:px-6 sm:py-12">
+      <slot />
+    </main>
+
+    <footer class="bg-bean-900 text-bean-50">
+      <div class="mx-auto grid max-w-5xl gap-8 px-4 py-10 sm:grid-cols-3 sm:px-6">
+        <div>
+          <h2 class="text-lg font-bold">{cafe.name}</h2>
+          <address class="mt-2 not-italic leading-relaxed">
+            {cafe.street}<br />{cafe.city}<br />
+            <a href={`tel:${cafe.phone.replace(/\s/g, '')}`}>{cafe.phone}</a><br />
+            <a href={`mailto:${cafe.email}`}>{cafe.email}</a>
+          </address>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold">Opening hours</h2>
+          <dl class="mt-2 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
+            {cafe.hours.map((h) => (<><dt>{h.days}</dt><dd>{h.time}</dd></>))}
+          </dl>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold">More</h2>
+          <ul class="mt-2 space-y-1">
+            <li><a href={url('/after/imprint/')}>Imprint</a></li>
+            <li><a href={url('/after/privacy/')}>Privacy policy</a></li>
+            <li><a href="https://www.instagram.com/" rel="noopener">Instagram <span class="sr-only">(external)</span></a></li>
+          </ul>
+          <p class="mt-4 text-sm">No cookies, no trackers, so no cookie banner.</p>
+        </div>
+      </div>
+      <p class="border-t border-bean-800 px-4 py-4 text-center text-sm">
+        Fictional café · teaching demo for CM-501 Frontend Web Development
+      </p>
+    </footer>
+  </body>
+</html>

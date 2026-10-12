@@ -1,0 +1,25 @@
+{
+  "name": "campus-cafe-demo",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CM-501 teaching demo: the same caf\u00e9 website built twice (before = deliberately bad, after = fixed).",
+  "scripts": {
+    "predev": "node scripts/generate-images.mjs",
+    "dev": "astro dev",
+    "prebuild": "node scripts/generate-images.mjs",
+    "build": "astro build",
+    "preview": "astro preview",
+    "images": "node scripts/generate-images.mjs --force"
+  },
+  "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.8",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4.3.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
